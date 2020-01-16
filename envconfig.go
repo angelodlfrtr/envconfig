@@ -195,20 +195,26 @@ func Process(prefix string, spec interface{}) error {
 			value, ok = lookupEnv(info.Alt)
 		}
 
-		def := info.Tags.Get("default")
-		if def != "" && !ok {
-			value = def
-		}
+		// @CHANGE : Do not handle default or required
 
-		req := info.Tags.Get("required")
-		if !ok && def == "" {
-			if isTrue(req) {
-				key := info.Key
-				if info.Alt != "" {
-					key = info.Alt
-				}
-				return fmt.Errorf("required key %s missing value", key)
-			}
+		// def := info.Tags.Get("default")
+		// if def != "" && !ok {
+		// value = def
+		// }
+
+		// req := info.Tags.Get("required")
+		// if !ok && def == "" {
+		// if isTrue(req) {
+		// key := info.Key
+		// if info.Alt != "" {
+		// key = info.Alt
+		// }
+		// return fmt.Errorf("required key %s missing value", key)
+		// }
+		// continue
+		// }
+
+		if !ok {
 			continue
 		}
 
